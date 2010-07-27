@@ -2,13 +2,12 @@
 
 require 'rest_client'
 
-# InstaPush.connect username, password 
 class InstaPush
-  def self.connect(username, password = nil)
+  def self.connect(username, password = nil, &block)
     conn = new username, password
     
     if block_given?
-      yield conn
+      conn.instance_eval(&block)
     else
       conn
     end
