@@ -63,8 +63,13 @@ describe InstaPush do
         RestClient.should_receive(:post).once.with("https://www.instapaper.com/api/add", hash_including(:title=>"Kim Joar", :selection=>"description"))
         @conn.add "http://kimjoar.net", :title => "Kim Joar", :selection => "description"
       end
+      
+      it "should return a response code of 201 when successful" do
+        RestClient.should_receive(:post).once.with("https://www.instapaper.com/api/add", hash_including(:title=>"Kim Joar", :selection=>"description")).and_return("201")
+        @conn.add("http://kimjoar.net", :title => "Kim Joar", :selection => "description").should == "201"
+      end
     end
-        
+    
     describe "#method_missing" do    
       it "should return the extended api url if the input ends with _url" do
         @conn.add_url.should == "https://www.instapaper.com/api/add"
