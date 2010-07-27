@@ -17,7 +17,9 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "README.md",
+     "Rakefile",
      "VERSION",
+     "instapush.gemspec",
      "lib/instapush.rb",
      "spec/instapush_spec.rb",
      "spec/spec_helper.rb"
