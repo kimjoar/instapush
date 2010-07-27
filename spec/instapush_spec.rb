@@ -10,9 +10,9 @@ describe InstaPush do
   
   describe ".connect" do
     it "should yield an instance of InstaPush if a block is given" do
-      InstaPush.connect "kjbekkelund@gmail.com" do |conn|
-        conn.should be_kind_of(InstaPush)
-      end
+      yielded = nil
+      InstaPush.connect("kjbekkelund@gmail.com") { yielded = self }
+      yielded.should be_kind_of(InstaPush)
     end
     
     it "should return an instance of InstaPush if a block is not given" do
@@ -21,18 +21,24 @@ describe InstaPush do
     end
   end
   
+  describe ".authenticate" do
+    it "should raise an exception when it fails" do
+      lambda { InstaPush.authenticate("not_working@gmail.com") }.should raise_error(InstaPush::AuthFailedError)
+    end
+  end
+  
   describe "#errors" do
     it "should include an error when an api method has failed" do
-      InstaPush.connect "not_working@gmail.com" do |conn|
-        conn.authenticate.should be_false
-        conn.errors.length.should == 1
+      InstaPush.connect "not_working@gmail.com" do
+        authenticate
+        errors.length.should == 1
       end
     end
     
     it "should include the exception raised" do
-      InstaPush.connect "not_working@gmail.com" do |conn|
-        conn.authenticate.should be_false
-        conn.errors.first.to_s.should == "Forbidden"
+      InstaPush.connect "not_working@gmail.com" do
+        authenticate
+        errors.first.to_s.should == "Forbidden"
       end
     end 
   end

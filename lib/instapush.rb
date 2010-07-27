@@ -3,13 +3,22 @@
 require 'rest_client'
 
 class InstaPush
-  def self.connect(username, password = nil, &block)
-    conn = new username, password
+  class AuthFailedError < StandardError; end
+  
+  class << self
+    def connect(username, password = nil, &block)
+      conn = new username, password
+      
+      if block_given?
+        conn.instance_eval(&block)
+      else
+        conn
+      end
+    end
     
-    if block_given?
-      conn.instance_eval(&block)
-    else
-      conn
+    def authenticate(username, password = nil)
+      conn = connect(username, password)
+      raise AuthFailedError unless conn.authenticate
     end
   end
   
