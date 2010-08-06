@@ -16,12 +16,12 @@ Connect to Instapaper and add "http://kimjoar.net" to the user "kjbekkelund@gmai
     InstaPush.connect "kjbekkelund@gmail.com", "password" do
       add "http://kimjoar.net"
     end
-    
+
 Similarly you can use:
 
     conn = InstaPush.connect "kjbekkelund@gmail.com", "password"
     conn.add "http://kimjoar.net"
-    
+
 Just authenticate with Instapaper. Calling this before adding pages is not necessary.
 
     InstaPush.authenticate "kjbekkelund@gmail.com", "password"
