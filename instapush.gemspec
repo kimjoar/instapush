@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{instapush}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kim Joar Bekkelund"]
-  s.date = %q{2010-07-27}
+  s.date = %q{2010-08-06}
   s.description = %q{Ruby wrapper for the Instapaper API.}
   s.email = %q{kjbekkelund@gmail.com}
   s.extra_rdoc_files = [
