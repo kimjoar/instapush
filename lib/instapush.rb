@@ -58,8 +58,11 @@ class InstaPush
     @errors ||= []
   end
 
-  def method_missing(sym)
-    raise NoMethodError unless sym.to_s.include? '_url'
-    api_url + sym.to_s.chomp('_url')
+  def method_missing(symbol)
+    if symbol.to_s.include? '_url'
+      api_url + symbol.to_s.chomp('_url')
+    else
+      super
+    end
   end
 end
